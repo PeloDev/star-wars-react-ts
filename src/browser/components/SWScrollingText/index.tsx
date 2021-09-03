@@ -11,7 +11,7 @@ import {
     Text,
     VStack
 } from '@chakra-ui/react';
-import { h1, h2, starWarsScrollText, starWarsScrollWrapper } from 'src/browser/styles';
+import { h1, h2, starWarsScrollText, starWarsScrollWrapper } from '../../styles';
 import swLogo from '../../assets/vectors/star-wars.svg';
 
 interface IProps {

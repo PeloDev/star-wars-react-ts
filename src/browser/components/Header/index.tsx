@@ -10,7 +10,6 @@ import swLogo from '../../assets/vectors/star-wars.svg';
 
 
 export default function Header() {
-    // test serverless git pipeline
     return (
         <Flex justify="center">
             <VStack

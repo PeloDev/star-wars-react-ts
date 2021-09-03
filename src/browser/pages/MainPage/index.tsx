@@ -6,10 +6,10 @@ import {
     Image,
     Text
 } from '@chakra-ui/react';
-import SWScrollingText from 'src/browser/components/SWScrollingText';
-import { starWarsScrollBG } from 'src/browser/styles';
 import swLogo from '../../assets/vectors/star-wars.svg';
-import Header from 'src/browser/components/Header';
+import SWScrollingText from '../../components/SWScrollingText';
+import { starWarsScrollBG } from '../../styles';
+import Header from '../../components/Header';
 
 export default function MainPage() {
 
