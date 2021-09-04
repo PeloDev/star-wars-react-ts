@@ -11,7 +11,11 @@ import swLogo from '../../assets/vectors/star-wars.svg';
 
 export default function Header() {
     return (
-        <Flex justify="center">
+        <Flex
+            justify="center"
+            bgGradient="linear-gradient(black, transparent)"
+            p={4}
+        >
             <VStack
                 justify="center"
             >

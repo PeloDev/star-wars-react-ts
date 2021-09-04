@@ -62,6 +62,34 @@ body {
 	to { transform: scale(0.3); opacity: 0.4; }
 }
 
+@keyframes driftInSpace {
+    0% {
+      top: 0px;
+      left: -8px;
+      transform: rotate(-6deg);
+    }
+    25% {
+      top: -8px;
+      left: 0px;
+      transform: rotate(0deg);
+    }
+    50% {
+      top: 0px;
+      left: 8px;
+      transform: rotate(6deg);
+    }
+    75% {
+      top: 8px;
+      left: 0px;
+      transform: rotate(0deg);
+    }
+    100% {
+      top: 0px;
+      left: -8px;
+      transform: rotate(-6deg);
+    }
+}
+
 @keyframes swTextScrollBU {
   from { top: -500px; transform: translateZ(0) rotateX(20deg); }
 	to { top: -7500px; transform: translateZ(-2500px) rotateX(20deg); }
