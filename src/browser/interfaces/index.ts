@@ -4,5 +4,6 @@ export interface ICharacter {
     height: string; 
     mass: string; 
     gender: string;
-    homeworld: any;
+    homeworld: string;
+    homeworldOb?: any;
 }

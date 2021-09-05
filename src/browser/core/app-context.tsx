@@ -40,58 +40,31 @@ const reducer = (state: typeof initialState, action: any) => {
     switch (action.type) {
         case "mainPageNext":
             newState.mainPage.pageNum += 1;
-            // if (typeof window !== 'undefined') {
-            //     localStorage.setItem(localStorageKey, JSON.stringify(newState));
-            // }
             return newState;
         case "mainPagePrev":
             newState.mainPage.pageNum = newState.mainPage.pageNum > 1 ? newState.mainPage.pageNum - 1 : 1;
-            // if (typeof window !== 'undefined') {
-            //     localStorage.setItem(localStorageKey, JSON.stringify(newState));
-            // }
             return newState;
         case "mainPageNavigate":
             newState.mainPage.pageNum = action.value;
-            // if (typeof window !== 'undefined') {
-            //     localStorage.setItem(localStorageKey, JSON.stringify(newState));
-            // }
             return newState;
         case "createNewSession":
             newState.showIntro = true;
             newState.sessionExpiry = Math.floor(Date.now() / 1000) + 300; // 5 mins
-            // if (typeof window !== 'undefined') {
-            //     localStorage.setItem(localStorageKey, JSON.stringify(newState));
-            // }
             return newState;
         case "dontShowIntro":
             newState.showIntro = false;
-            // if (typeof window !== 'undefined') {
-            //     localStorage.setItem(localStorageKey, JSON.stringify(newState));
-            // }
             return newState;
         case "loading":
             newState.loading = !state.loading;
-            // if (typeof window !== 'undefined') {
-            //     localStorage.setItem(localStorageKey, JSON.stringify(newState));
-            // }
             return newState;
         case "setLoading":
             newState.loading = true;
-            // if (typeof window !== 'undefined') {
-            //     localStorage.setItem(localStorageKey, JSON.stringify(newState));
-            // }
             return newState;
         case "unsetLoading":
             newState.loading = false;
-            // if (typeof window !== 'undefined') {
-            //     localStorage.setItem(localStorageKey, JSON.stringify(newState));
-            // }
             return newState;
         case "setState":
             newState = action.state ?? newState;
-            // if (typeof window !== 'undefined') {
-            //     localStorage.setItem(localStorageKey, JSON.stringify(newState));
-            // }
             return newState;
         default:
             throw new Error();

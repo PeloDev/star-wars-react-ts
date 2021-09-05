@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ICharacter } from '../interfaces';
 
 const BASE_URL = 'https://5allelwtuk.execute-api.us-east-1.amazonaws.com/dev/';
 
@@ -35,7 +36,7 @@ export async function fetchPeople(page = 1) {
         variables: { page: page }
     });
     if (data.data.getAllPeople) {
-        return data.data.getAllPeople;
+        return data.data.getAllPeople as ICharacter;
     } else {
         console.log(data.data);
         return null;
@@ -61,7 +62,7 @@ export async function fetchPerson(id: string) {
         variables: { id: id }
     });
     if (data.data.getPersonById) {
-        return data.data.getPersonById;
+        return data.data.getPersonById as ICharacter;
     } else {
         console.log(data.data);
         return null;
@@ -78,7 +79,7 @@ export async function searchPerson(name: string) {
         variables: { name: name }
     });
     if (data.data.searchPerson) {
-        return data.data.searchPerson;
+        return data.data.searchPerson as ICharacter[];
     } else {
         console.log(data.data);
         return null;
