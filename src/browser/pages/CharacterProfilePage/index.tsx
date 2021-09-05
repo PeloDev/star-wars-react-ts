@@ -7,6 +7,7 @@ import {
     GridItem,
     Image,
     Link,
+    Skeleton,
     Text,
     VStack
 } from '@chakra-ui/react';
@@ -30,27 +31,24 @@ export default function CharacterProfilePage({ characterID }: IProps) {
     const [appState, dispatch] = useContext(AppContext);
     // const [characterImg, setCharacterImg] = useState<string>("");
     const [character, setCharacter] = useState<ICharacter | undefined>(undefined);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        console.log('character id:');
-        console.log(characterID);
-        dispatch({
-            type: "setLoading"
-        });
+        setIsLoading(true);
         fetchPerson(characterID)
             .then(result => {
                 setCharacter(result);
             })
             .catch(e => console.log(e))
             .finally(() => {
-                dispatch({
-                    type: "unsetLoading"
-                });
+                setIsLoading(false);
             });
     }, []);
 
     useEffect(() => {
-        console.log(character);
+        if (character) {
+            setIsLoading(false);
+        }
     }, [character])
 
     return (
@@ -82,80 +80,140 @@ export default function CharacterProfilePage({ characterID }: IProps) {
                 </Text>
                 <Box w="60px" />
             </Flex>
-            <Text
-                my={1}
-                fontSize={36}
-                fontWeight={700}
-                textAlign="center"
-            >
-                {character?.name}
-            </Text>
             {
-                character &&
-                Object.keys(character)
-                    .filter((charKey) => charKey !== 'id' && charKey !== 'homeworld' && charKey !== 'name')
-                    .map((charKey, charKeyIdx) => {
-                        let fieldName = charKey === 'homeworldOb' ? 'homeworld' : charKey;
-                        let FieldIcon: IconType = GiLightSabers, measure = "";
-                        switch (fieldName) {
-                            case "height":
-                                measure = "cm";
-                                FieldIcon = GiBodyHeight;
-                                break;
-                            case "mass":
-                                measure = "kg";
-                                FieldIcon = GiWeight;
-                                break;
-                            case "gender":
-                                measure = "";
-                                FieldIcon = character.gender === "male"
-                                    ? GiMale
-                                    : character.gender === "female"
-                                        ? GiFemale
-                                        : RiGenderlessLine;
-                                break;
-                            case "homeworld":
-                                measure = "";
-                                FieldIcon = BiPlanet;
-                                break;
+                isLoading
+                    ? <Box>
+                        <Center>
+                            <Skeleton startColor="red.300" endColor="blue.200" h={40} />
+                        </Center>
+                        <Grid
+                            templateColumns="repeat(12, 1fr)"
+                            gap={4}
+                        >
+                            <GridItem colSpan={5}>
+                                <Skeleton startColor="red" endColor="blue" height={30} />
+                            </GridItem>
+                            <GridItem colSpan={2}>
+                                <Text textAlign="center">:</Text>
+                            </GridItem>
+                            <GridItem colSpan={5}>
+                                <Skeleton startColor="red" endColor="blue" height={30} />
+                            </GridItem>
+                            <GridItem colSpan={5}>
+                                <Skeleton startColor="red" endColor="blue" height={30} />
+                            </GridItem>
+                            <GridItem colSpan={2}>
+                                <Text textAlign="center">:</Text>
+                            </GridItem>
+                            <GridItem colSpan={5}>
+                                <Skeleton startColor="red" endColor="blue" height={30} />
+                            </GridItem>
+                            <GridItem colSpan={5}>
+                                <Skeleton startColor="red" endColor="blue" height={30} />
+                            </GridItem>
+                            <GridItem colSpan={2}>
+                                <Text textAlign="center">:</Text>
+                            </GridItem>
+                            <GridItem colSpan={5}>
+                                <Skeleton startColor="red" endColor="blue" height={30} />
+                            </GridItem>
+                            <GridItem colSpan={5}>
+                                <Skeleton startColor="red" endColor="blue" height={30} />
+                            </GridItem>
+                            <GridItem colSpan={2}>
+                                <Text textAlign="center">:</Text>
+                            </GridItem>
+                            <GridItem colSpan={5}>
+                                <Skeleton startColor="red" endColor="blue" height={30} />
+                            </GridItem>
+                            <GridItem colSpan={5}>
+                                <Skeleton startColor="red" endColor="blue" height={30} />
+                            </GridItem>
+                            <GridItem colSpan={2}>
+                                <Text textAlign="center">:</Text>
+                            </GridItem>
+                            <GridItem colSpan={5}>
+                                <Skeleton startColor="red" endColor="blue" height={30} />
+                            </GridItem>
+                        </Grid>
+                    </Box>
+                    : <>
+                        <Text
+                            my={1}
+                            fontSize={36}
+                            fontWeight={700}
+                            textAlign="center"
+                        >
+                            {character?.name}
+                        </Text>
+                        {
+                            character &&
+                            Object.keys(character)
+                                .filter((charKey) => charKey !== 'id' && charKey !== 'homeworld' && charKey !== 'name')
+                                .map((charKey, charKeyIdx) => {
+                                    let fieldName = charKey === 'homeworldOb' ? 'homeworld' : charKey;
+                                    let FieldIcon: IconType = GiLightSabers, measure = "";
+                                    switch (fieldName) {
+                                        case "height":
+                                            measure = "cm";
+                                            FieldIcon = GiBodyHeight;
+                                            break;
+                                        case "mass":
+                                            measure = "kg";
+                                            FieldIcon = GiWeight;
+                                            break;
+                                        case "gender":
+                                            measure = "";
+                                            FieldIcon = character.gender === "male"
+                                                ? GiMale
+                                                : character.gender === "female"
+                                                    ? GiFemale
+                                                    : RiGenderlessLine;
+                                            break;
+                                        case "homeworld":
+                                            measure = "";
+                                            FieldIcon = BiPlanet;
+                                            break;
+                                    }
+                                    return (
+                                        <Box
+                                            key={`character-profile-${characterID}-${fieldName}`}
+                                            my={6}
+                                        >
+                                            <Center>
+                                                <FieldIcon size={30} color="#ffc909" />
+                                            </Center>
+                                            <Grid
+                                                templateColumns="repeat(12, 1fr)"
+                                                gap={4}
+                                                fontSize={[14, 15, 16]}
+                                            >
+                                                <GridItem colSpan={5}>
+                                                    <Text
+                                                        textAlign="right"
+                                                        textTransform="capitalize"
+                                                        fontWeight={300}
+                                                    >
+                                                        {fieldName}
+                                                    </Text>
+                                                </GridItem>
+                                                <GridItem colSpan={2}>
+                                                    <Text textAlign="center">:</Text>
+                                                </GridItem>
+                                                <GridItem colSpan={5}>
+                                                    <Text
+                                                        textAlign="left"
+                                                    >
+                                                        {charKey === 'homeworldOb' ? character[charKey as keyof ICharacter].name : character[charKey as keyof ICharacter]}
+                                                        {measure}
+                                                    </Text>
+                                                </GridItem>
+                                            </Grid>
+                                        </Box>
+                                    );
+                                })
                         }
-                        return (
-                            <Box
-                                key={`character-profile-${characterID}-${fieldName}`}
-                                my={6}
-                            >
-                                <Center>
-                                    <FieldIcon size={30} color="#ffc909" />
-                                </Center>
-                                <Grid
-                                    templateColumns="repeat(12, 1fr)"
-                                    gap={4}
-                                    fontSize={[14, 15, 16]}
-                                >
-                                    <GridItem colSpan={5}>
-                                        <Text
-                                            textAlign="right"
-                                            textTransform="capitalize"
-                                            fontWeight={300}
-                                        >
-                                            {fieldName}
-                                        </Text>
-                                    </GridItem>
-                                    <GridItem colSpan={2}>
-                                        <Text textAlign="center">:</Text>
-                                    </GridItem>
-                                    <GridItem colSpan={5}>
-                                        <Text
-                                            textAlign="left"
-                                        >
-                                            {charKey === 'homeworldOb' ? character[charKey as keyof ICharacter].name : character[charKey as keyof ICharacter]}
-                                            {measure}
-                                        </Text>
-                                    </GridItem>
-                                </Grid>
-                            </Box>
-                        );
-                    })
+                    </>
             }
             <Image
                 w="100vw"

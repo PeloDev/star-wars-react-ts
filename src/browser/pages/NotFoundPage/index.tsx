@@ -22,14 +22,17 @@ export default function NotFound({ route }: IProps) {
             <VStack>
                 {
                     appState.loading || route === null
-                        ? <Box>
+                        ? <VStack
+                            justifyContent="center"
+                            py={12}
+                        >
                             <CircularProgress
                                 isIndeterminate
-                                size={30}
+                                size="60px"
                                 trackColor="transparent"
                                 color="#ffc909"
                             />
-                        </Box>
+                        </VStack>
                         : <Box>
                             <Text>
                                 Page Not Foundling
