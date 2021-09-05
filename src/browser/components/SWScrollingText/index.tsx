@@ -64,7 +64,7 @@ export default function SWScrollingText({ crawlType = "intro", onAnimationEnd }:
                     showCrawl &&
                     <Box
                         key={`sw-crawler=${showCrawl.toString()}`}
-                        animation='swTextScroll 90s linear'
+                        animation={['swTextScroll 20s linear', 'swTextScroll 20s linear', 'swTextScroll 30s linear']}
                         {...starWarsScrollText}
                         onAnimationEnd={onAnimationEnd}
                         top={crawlTop}

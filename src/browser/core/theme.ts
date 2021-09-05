@@ -9,6 +9,7 @@ const theme = extendTheme({
     Text: {
       baseStyle: {
         color: "#ffc909",
+        fontWeight: 500,
         fontFamily: "Roboto",
         my: '1em'
       }

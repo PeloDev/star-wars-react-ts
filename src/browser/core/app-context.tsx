@@ -2,70 +2,105 @@ import React, { createContext, useEffect, useReducer } from 'react';
 
 
 let initialState = {
-    /** Used to manage the state of the main page */
     mainPage: {
-        searchTerm: "",
         pageNum: 1,
     },
-    loading: false
+    sessionExpiry: Math.floor(Date.now() / 1000) + 300, // 5 mins
+    showIntro: true,
+    loading: false,
+    ready: true
 };
 
-const localStorageKey = "BoipelosSWApp";
+export const localStorageKey = "BoipelosSWApp";
 
 if (typeof window !== 'undefined') {
+    let localState = localStorage.getItem(localStorageKey);
+    if (localState) {
+        initialState = JSON.parse(localState);
+    }
+}
+
+if (typeof window !== 'undefined') {
+    initialState.ready = true;
     if (!localStorage.getItem(localStorageKey)) {
         localStorage.setItem(localStorageKey, JSON.stringify(initialState));
     }
 } else {
-    console.log("WINDOW UNDEFINED");
+    initialState.ready = false;
+    initialState.showIntro = false;
 }
 
+let defaultValue = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem(localStorageKey) ?? JSON.stringify(initialState)) : initialState;
+export const AppContext = createContext<any>(defaultValue);
 
-export const AppContext = createContext<any>(initialState);
+const reducer = (state: typeof initialState, action: any) => {
 
-const reducer = (state: any, action: any) => {
+    let newState = state;
+
     switch (action.type) {
         case "mainPageNext":
-            let mainPageNextState = state;
-            mainPageNextState.mainPage.pageNum += 1;
-            return mainPageNextState;
+            newState.mainPage.pageNum += 1;
+            // if (typeof window !== 'undefined') {
+            //     localStorage.setItem(localStorageKey, JSON.stringify(newState));
+            // }
+            return newState;
         case "mainPagePrev":
-            let mainPagePrevState = state;
-            mainPagePrevState.mainPage.pageNum = mainPagePrevState.mainPage.pageNum > 1 ? mainPagePrevState.mainPage.pageNum - 1 : 1;
-            return mainPagePrevState;
-        case "mainPageSearch":
-            let mainPageSearchState = state;
-            mainPageSearchState.mainPage.searchTerm = action.value;
-            return mainPageSearchState;
+            newState.mainPage.pageNum = newState.mainPage.pageNum > 1 ? newState.mainPage.pageNum - 1 : 1;
+            // if (typeof window !== 'undefined') {
+            //     localStorage.setItem(localStorageKey, JSON.stringify(newState));
+            // }
+            return newState;
+        case "mainPageNavigate":
+            newState.mainPage.pageNum = action.value;
+            // if (typeof window !== 'undefined') {
+            //     localStorage.setItem(localStorageKey, JSON.stringify(newState));
+            // }
+            return newState;
+        case "createNewSession":
+            newState.showIntro = true;
+            newState.sessionExpiry = Math.floor(Date.now() / 1000) + 300; // 5 mins
+            // if (typeof window !== 'undefined') {
+            //     localStorage.setItem(localStorageKey, JSON.stringify(newState));
+            // }
+            return newState;
+        case "dontShowIntro":
+            newState.showIntro = false;
+            // if (typeof window !== 'undefined') {
+            //     localStorage.setItem(localStorageKey, JSON.stringify(newState));
+            // }
+            return newState;
         case "loading":
-            return {
-                ...state,
-                loading: state ? !state.loading : true
-            };
+            newState.loading = !state.loading;
+            // if (typeof window !== 'undefined') {
+            //     localStorage.setItem(localStorageKey, JSON.stringify(newState));
+            // }
+            return newState;
         case "setLoading":
-            return {
-                ...state,
-                loading: true
-            };
+            newState.loading = true;
+            // if (typeof window !== 'undefined') {
+            //     localStorage.setItem(localStorageKey, JSON.stringify(newState));
+            // }
+            return newState;
         case "unsetLoading":
-            return {
-                ...state,
-                loading: false
-            };
+            newState.loading = false;
+            // if (typeof window !== 'undefined') {
+            //     localStorage.setItem(localStorageKey, JSON.stringify(newState));
+            // }
+            return newState;
         case "setState":
-            return action.state;
+            newState = action.state ?? newState;
+            // if (typeof window !== 'undefined') {
+            //     localStorage.setItem(localStorageKey, JSON.stringify(newState));
+            // }
+            return newState;
         default:
             throw new Error();
     }
+
 };
 
 export const StateProvider = (props: any) => {
     const [state, dispatch] = useReducer(reducer, initialState);
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            localStorage.setItem(localStorageKey, JSON.stringify(state));
-        }
-    }, [state]);
 
     return (
         <AppContext.Provider value={[state, dispatch]}>

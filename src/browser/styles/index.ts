@@ -19,8 +19,9 @@ export const starWarsScrollBG : StyleProps = {
     backgroundColor: 'background',
     backgroundImage: starsBG,
     fontFamily: 'Roboto',
-    overflow: 'auto',
-    overflowY: 'hidden'
+    minH: "100vh"
+    // overflow: 'auto',
+    // overflowY: 'hidden'
 }
 
 export const starWarsScrollWrapper : StyleProps = {
@@ -36,5 +37,5 @@ export const starWarsScrollText : StyleProps = {
     lineHeight: '3em',
     textAlign: 'justify',
     position: 'relative',
-    mx: -300
+    mx: [0, -150, -300]
 }

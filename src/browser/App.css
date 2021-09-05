@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700;800&display=swap');
 
 .App {
   text-align: center;
@@ -54,7 +54,7 @@ body {
 
 @keyframes swTextScroll {
   from { transform: translateZ(0) rotateX(20deg); }
-	to { top: -7500px; transform: translateZ(-2500px) rotateX(20deg); }
+	to { top: -2500px; transform: translateZ(-833px) rotateX(20deg); }
 }
 
 @keyframes swLogoAnim {

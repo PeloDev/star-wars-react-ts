@@ -13,7 +13,7 @@ import Routes from "./core/routes";
 import ConfigContext from "../components/ConfigContext";
 import NotFound from "./pages/NotFoundPage";
 import config from "../server/config";
-import { fetchPeople } from "./core/api";
+import CharacterProfilePage from "./pages/CharacterProfilePage";
 
 /**
  * Our Web Application
@@ -22,6 +22,7 @@ import { fetchPeople } from "./core/api";
 enum EPage {
   mainDefault = "mainDefault",
   mainPage = "mainPage",
+  characterPage = "characterPage",
   notFound = "404",
   loading = "loading"
 }
@@ -46,12 +47,12 @@ export default function App() {
         newPage = EPage.mainDefault;
       } else if (route.split('/').length - 1 === 1 && !isNaN(Number(route.split('/')[1]))) {
         newPage = EPage.mainPage;
+      } else if (route.includes('/character/')) {
+        newPage = EPage.characterPage
       }
       setPage(newPage);
     }
   }, [route]);
-
-  fetchPeople();
 
   return (
     <StateProvider>
@@ -59,8 +60,11 @@ export default function App() {
         {
           page === EPage.mainDefault
             ? <MainPage />
-            : page === EPage.mainPage ? <MainPage page={route ? Number(route.split('/')[1]) : 1} />
-              : <NotFound />
+            : page === EPage.mainPage 
+            ? <MainPage /*page={route ? Number(route.split('/')[1]) : 1}*/ />
+            : page === EPage.characterPage 
+            ? <CharacterProfilePage characterID={route ? route.split('/')[2] : "-"} />
+              : <NotFound route={route} />
         }
       </ChakraProvider>
     </StateProvider>

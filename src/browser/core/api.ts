@@ -15,20 +15,74 @@ const api = { get, post };
 
 // Back-end requests
 export async function fetchPeople(page = 1) {
-    post('/graphql', {
+    const { data } = await post('graphql', {
         query: `
             query($page: Int) {
-                getAllPeople(page: $page) {name}
+                getAllPeople(page: $page) {
+                    count
+                    total
+                    people {
+                        id
+                        name
+                        mass
+                        height
+                        homeworld
+                        gender
+                    }
+                }
             }
         `,
         variables: { page: page }
-    })
-    .then(result => {
-        console.log(result.data);
-    })
-    .catch(e => {
-        console.log(e.response.data);
     });
+    if (data.data.getAllPeople) {
+        return data.data.getAllPeople;
+    } else {
+        console.log(data.data);
+        return null;
+    }
+}
+
+export async function fetchPerson(id: string) {
+    const { data } = await post('graphql', {
+        query: `
+            query($id: String!) {
+                getPersonById(id: $id) {
+                    id, 
+                    name, 
+                    height, 
+                    mass, 
+                    gender, 
+                    homeworldOb {
+                        name
+                    }
+                }
+            }
+        `,
+        variables: { id: id }
+    });
+    if (data.data.getPersonById) {
+        return data.data.getPersonById;
+    } else {
+        console.log(data.data);
+        return null;
+    }
+}
+
+export async function searchPerson(name: string) {
+    const { data } = await post('graphql', {
+        query: `
+            query($name: String!) {
+                searchPerson(name: $name) {id, name, height, mass, gender, homeworld}
+            }
+        `,
+        variables: { name: name }
+    });
+    if (data.data.searchPerson) {
+        return data.data.searchPerson;
+    } else {
+        console.log(data.data);
+        return null;
+    }
 }
 
 export default api;
