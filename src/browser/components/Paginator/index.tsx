@@ -11,11 +11,12 @@ interface IProps {
     count: number;
     total: number;
     pageNumber: number;
+    searchName: string;
     isLoading: boolean;
     onNavigate: (page: number) => Promise<void>;
 }
 
-export default function Paginator({ count, total, pageNumber, isLoading, onNavigate }: IProps) {
+export default function Paginator({ count, total, pageNumber, searchName, isLoading, onNavigate }: IProps) {
 
     // const [appState, dispatch] = useContext(AppContext);
     const [pages, setPages] = useState<number[]>([]);
@@ -58,7 +59,7 @@ export default function Paginator({ count, total, pageNumber, isLoading, onNavig
                             trackColor="transparent"
                             color="#ffc909"
                         />
-                        : pages
+                        : !searchName && pages
                             .map((pg) => (
                                 <Text
                                     key={`page-nav-number-${pg}`}
@@ -80,11 +81,28 @@ export default function Paginator({ count, total, pageNumber, isLoading, onNavig
                 }
             </Flex>
 
-            <Text
-                textAlign="center"
-            >
-                {startIdx} - {endIdx} of {total}
-            </Text>
+            {
+                searchName
+                    ?
+                    isLoading
+                        ? <CircularProgress
+                            my={4}
+                            isIndeterminate
+                            size={30}
+                            trackColor="transparent"
+                            color="#ffc909"
+                        />
+                        : <Text
+                            textAlign="center"
+                        >
+                            {count} results for search "{searchName}"
+                        </Text>
+                    : <Text
+                        textAlign="center"
+                    >
+                        {startIdx} - {endIdx} of {total}
+                    </Text>
+            }
         </Box>
     );
 }

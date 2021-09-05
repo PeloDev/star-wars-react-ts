@@ -285,6 +285,7 @@ export default function MainPage() {
                                 count={characters.length}
                                 total={total ?? 0}
                                 pageNumber={appState.mainPage.pageNum}
+                                searchName={searchName}
                                 isLoading={isLoading}
                                 onNavigate={async (pg) => {
                                     await getPeople(pg);
