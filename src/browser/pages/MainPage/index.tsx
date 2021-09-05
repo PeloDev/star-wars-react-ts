@@ -9,17 +9,17 @@ import { starWarsScrollBG } from '../../styles';
 import Header from '../../components/Header';
 import tempImg from '../../assets/images/characters/r2d2.png';
 import { AppContext } from '../../core/app-context';
-import { ICharacter } from 'src/browser/interfaces';
-import { fetchPeople, searchPerson } from 'src/browser/core/api';
-import Paginator from 'src/browser/components/Paginator';
-import CharactersTable from 'src/browser/components/CharactersTable';
-import SearchBar from 'src/browser/components/SearchBar';
+import { ICharacter, ICharactersResult } from '../../interfaces';
+import { fetchPeople, searchPerson } from '../../core/api';
+import Paginator from '../../components/Paginator';
+import CharactersTable from '../../components/CharactersTable';
+import SearchBar from '../../components/SearchBar';
 
 export default function MainPage() {
 
     const [appState, dispatch] = useContext(AppContext);
     const [isLoading, setIsLoading] = useState(false);
-    const [showScrollingText, setShowScrollingText] = useState(false);
+    const [showScrollingText, setShowScrollingText] = useState(true);
     const [characters, setCharacters] = useState<ICharacter[]>([]);
     const [searchName, setSearchName] = useState<string>("");
     const [total, setTotal] = useState<number | null>(null);
@@ -32,13 +32,15 @@ export default function MainPage() {
         setIsLoading(true);
         await fetchPeople(p)
             .then(result => {
-                setTotal(result.total);
-                setCharacters(result.people as ICharacter[]);
-                if (p) {
-                    dispatch({
-                        type: "mainPageNavigate",
-                        value: p
-                    });
+                if (result) {
+                    setTotal(result.total);
+                    setCharacters(result.people as ICharacter[]);
+                    if (p) {
+                        dispatch({
+                            type: "mainPageNavigate",
+                            value: p
+                        });
+                    }
                 }
             })
             .catch((e) => console.log(e))
@@ -109,7 +111,7 @@ export default function MainPage() {
                                     pos="relative"
                                     animation="driftInSpace infinite 8s linear"
                                 />
-                                <SearchBar 
+                                <SearchBar
                                     isLoading={isLoading}
                                     searchName={searchName}
                                     handleSearch={handleSearch}
@@ -118,7 +120,7 @@ export default function MainPage() {
                             <Box
                                 px={[0, "10%", "20%"]}
                             >
-                                <CharactersTable 
+                                <CharactersTable
                                     characters={characters}
                                 />
                             </Box>

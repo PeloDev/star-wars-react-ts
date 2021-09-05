@@ -5,8 +5,8 @@ import {
     Text,
     VStack
 } from '@chakra-ui/react';
-import { starWarsScrollBG } from 'src/browser/styles';
-import { AppContext } from 'src/browser/core/app-context';
+import { starWarsScrollBG } from '../../styles';
+import { AppContext } from '../../core/app-context';
 
 
 interface IProps {
@@ -35,7 +35,7 @@ export default function NotFound({ route }: IProps) {
                         </VStack>
                         : <Box>
                             <Text>
-                                Page Not Foundling
+                                Page Not Found
                             </Text>
                         </Box>
                 }

@@ -10,16 +10,16 @@ import {
     Text,
     VStack
 } from '@chakra-ui/react';
-import { starWarsScrollBG } from 'src/browser/styles';
-import { fetchPerson } from 'src/browser/core/api';
-import { ICharacter } from 'src/browser/interfaces';
+import { starWarsScrollBG } from '../../styles';
+import { fetchPerson } from '../../core/api';
+import { ICharacter } from '../../interfaces';
 import { BiPlanet } from 'react-icons/bi';
 import { RiGenderlessLine } from 'react-icons/ri';
 import { GiBodyHeight, GiFemale, GiLightSabers, GiMale, GiWeight } from 'react-icons/gi';
 import { IconType } from 'react-icons';
 import crossingSabersImg from '../../assets/images/crossing-light-sabers.png';
 import { MdNavigateBefore } from 'react-icons/md';
-import CharacterProfileSkeleton from 'src/browser/components/CharacterProfileSkeleton';
+import CharacterProfileSkeleton from '../../components/CharacterProfileSkeleton';
 
 interface IProps {
     characterID: string;
@@ -34,7 +34,7 @@ export default function CharacterProfilePage({ characterID }: IProps) {
         setIsLoading(true);
         fetchPerson(characterID)
             .then(result => {
-                setCharacter(result);
+                setCharacter(result as ICharacter);
             })
             .catch(e => console.log(e))
             .finally(() => {

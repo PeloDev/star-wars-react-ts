@@ -10,7 +10,7 @@ import {
     Tr
 } from '@chakra-ui/react';
 import { GiLightSabers } from 'react-icons/gi';
-import { ICharacter } from 'src/browser/interfaces';
+import { ICharacter } from '../../interfaces';
 
 interface IProps {
     characters: ICharacter[];

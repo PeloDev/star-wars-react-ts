@@ -5,7 +5,6 @@ import {
     Flex,
     Text
 } from '@chakra-ui/react';
-import { AppContext } from 'src/browser/core/app-context';
 
 interface IProps {
     count: number;

@@ -7,3 +7,9 @@ export interface ICharacter {
     homeworld: string;
     homeworldOb?: any;
 }
+
+export interface ICharactersResult {
+    count: number;
+    total: number;
+    people: ICharacter[];
+}
