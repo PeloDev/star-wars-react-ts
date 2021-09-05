@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import {
     Box,
     Center,
+    CircularProgress,
     Flex,
     Grid,
     GridItem,
@@ -84,7 +85,12 @@ export default function CharacterProfilePage({ characterID }: IProps) {
                 isLoading
                     ? <Box>
                         <Center>
-                            <Skeleton startColor="red.300" endColor="blue.200" h={40} />
+                            <CircularProgress
+                                isIndeterminate
+                                size={30}
+                                trackColor="transparent"
+                                color="#ffc909"
+                            />
                         </Center>
                         <Grid
                             templateColumns="repeat(12, 1fr)"
@@ -155,11 +161,11 @@ export default function CharacterProfilePage({ characterID }: IProps) {
                                     let FieldIcon: IconType = GiLightSabers, measure = "";
                                     switch (fieldName) {
                                         case "height":
-                                            measure = "cm";
+                                            measure = isNaN(Number(character.height)) ? "" :"cm";
                                             FieldIcon = GiBodyHeight;
                                             break;
                                         case "mass":
-                                            measure = "kg";
+                                            measure = isNaN(Number(character.mass)) ? "" : "kg";
                                             FieldIcon = GiWeight;
                                             break;
                                         case "gender":
