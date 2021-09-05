@@ -1,5 +1,14 @@
 import React from 'react';
-import { Flex, Link, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import {
+    Flex,
+    Link,
+    Table,
+    Tbody,
+    Td,
+    Th,
+    Thead,
+    Tr
+} from '@chakra-ui/react';
 import { GiLightSabers } from 'react-icons/gi';
 import { ICharacter } from 'src/browser/interfaces';
 

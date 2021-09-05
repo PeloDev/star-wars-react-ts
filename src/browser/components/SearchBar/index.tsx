@@ -1,4 +1,13 @@
-import { Box, CircularProgress, Flex, Input, InputGroup, InputLeftElement, InputRightElement, VStack } from '@chakra-ui/react';
+import {
+    Box,
+    CircularProgress,
+    Flex,
+    Input,
+    InputGroup,
+    InputLeftElement,
+    InputRightElement,
+    VStack
+} from '@chakra-ui/react';
 import React from 'react';
 import { MdSearch } from 'react-icons/md';
 

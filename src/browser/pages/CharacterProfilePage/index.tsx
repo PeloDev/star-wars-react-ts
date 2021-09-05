@@ -2,26 +2,24 @@ import React, { useContext, useEffect, useState } from 'react';
 import {
     Box,
     Center,
-    CircularProgress,
     Flex,
     Grid,
     GridItem,
     Image,
     Link,
-    Skeleton,
     Text,
     VStack
 } from '@chakra-ui/react';
 import { starWarsScrollBG } from 'src/browser/styles';
 import { fetchPerson } from 'src/browser/core/api';
 import { ICharacter } from 'src/browser/interfaces';
-import { AppContext } from 'src/browser/core/app-context';
 import { BiPlanet } from 'react-icons/bi';
 import { RiGenderlessLine } from 'react-icons/ri';
 import { GiBodyHeight, GiFemale, GiLightSabers, GiMale, GiWeight } from 'react-icons/gi';
 import { IconType } from 'react-icons';
 import crossingSabersImg from '../../assets/images/crossing-light-sabers.png';
 import { MdNavigateBefore } from 'react-icons/md';
+import CharacterProfileSkeleton from 'src/browser/components/CharacterProfileSkeleton';
 
 interface IProps {
     characterID: string;
@@ -29,8 +27,6 @@ interface IProps {
 
 export default function CharacterProfilePage({ characterID }: IProps) {
 
-    const [appState, dispatch] = useContext(AppContext);
-    // const [characterImg, setCharacterImg] = useState<string>("");
     const [character, setCharacter] = useState<ICharacter | undefined>(undefined);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -83,66 +79,7 @@ export default function CharacterProfilePage({ characterID }: IProps) {
             </Flex>
             {
                 isLoading
-                    ? <Box>
-                        <Center>
-                            <CircularProgress
-                                isIndeterminate
-                                size={30}
-                                trackColor="transparent"
-                                color="#ffc909"
-                            />
-                        </Center>
-                        <Grid
-                            templateColumns="repeat(12, 1fr)"
-                            gap={4}
-                        >
-                            <GridItem colSpan={5}>
-                                <Skeleton startColor="red" endColor="blue" height={30} />
-                            </GridItem>
-                            <GridItem colSpan={2}>
-                                <Text textAlign="center">:</Text>
-                            </GridItem>
-                            <GridItem colSpan={5}>
-                                <Skeleton startColor="red" endColor="blue" height={30} />
-                            </GridItem>
-                            <GridItem colSpan={5}>
-                                <Skeleton startColor="red" endColor="blue" height={30} />
-                            </GridItem>
-                            <GridItem colSpan={2}>
-                                <Text textAlign="center">:</Text>
-                            </GridItem>
-                            <GridItem colSpan={5}>
-                                <Skeleton startColor="red" endColor="blue" height={30} />
-                            </GridItem>
-                            <GridItem colSpan={5}>
-                                <Skeleton startColor="red" endColor="blue" height={30} />
-                            </GridItem>
-                            <GridItem colSpan={2}>
-                                <Text textAlign="center">:</Text>
-                            </GridItem>
-                            <GridItem colSpan={5}>
-                                <Skeleton startColor="red" endColor="blue" height={30} />
-                            </GridItem>
-                            <GridItem colSpan={5}>
-                                <Skeleton startColor="red" endColor="blue" height={30} />
-                            </GridItem>
-                            <GridItem colSpan={2}>
-                                <Text textAlign="center">:</Text>
-                            </GridItem>
-                            <GridItem colSpan={5}>
-                                <Skeleton startColor="red" endColor="blue" height={30} />
-                            </GridItem>
-                            <GridItem colSpan={5}>
-                                <Skeleton startColor="red" endColor="blue" height={30} />
-                            </GridItem>
-                            <GridItem colSpan={2}>
-                                <Text textAlign="center">:</Text>
-                            </GridItem>
-                            <GridItem colSpan={5}>
-                                <Skeleton startColor="red" endColor="blue" height={30} />
-                            </GridItem>
-                        </Grid>
-                    </Box>
+                    ? <CharacterProfileSkeleton />
                     : <>
                         <Text
                             my={1}

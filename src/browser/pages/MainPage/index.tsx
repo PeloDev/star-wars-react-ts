@@ -1,25 +1,9 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import {
     Box,
-    CircularProgress,
     Flex,
     Image,
-    Input,
-    InputGroup,
-    InputLeftElement,
-    InputRightElement,
-    Link,
-    Table,
-    Tbody,
-    Td,
-    Text,
-    Th,
-    Thead,
-    Tr,
-    VStack
 } from '@chakra-ui/react';
-import { MdSearch } from 'react-icons/md';
-import { GiLightSabers } from 'react-icons/gi';
 import SWScrollingText from '../../components/SWScrollingText';
 import { starWarsScrollBG } from '../../styles';
 import Header from '../../components/Header';
