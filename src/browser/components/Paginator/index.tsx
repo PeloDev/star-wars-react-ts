@@ -34,8 +34,8 @@ export default function Paginator({ count, total, pageNumber, searchName, isLoad
     useEffect(() => {
         setStartIdx(((pageNumber - 1) * 10) + 1);
         let endIdxCandidate = pageNumber * 10;
-        setEndIdx(endIdxCandidate < total ? endIdxCandidate : total);
-    }, [paginatorKey])
+        setEndIdx((endIdxCandidate < total && total > 0) ? endIdxCandidate : total);
+    }, [pages])
 
     return (
         <Box
